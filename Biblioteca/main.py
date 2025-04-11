@@ -15,21 +15,26 @@ class Main(QMainWindow):
             host = "localhost",
             user = "root",
             password = "",
-            database = "qtdesigner"
+            database = "bibliotecaqt"
         )
 
         self.Cursor = self.db_connection.cursor()
 
     def salvarDados(self):
 
-        nome = self.ui.lineEdit_nome.text()
-        email = self.ui.lineEdit_email.text()
+        titulo = self.ui.lineEdit_titulo.text()
+        autor = self.ui.lineEdit_autor.text()
+        categoria = self.ui.lineEdit_categoria.text()
+        publicacao = self.ui.dateEdit_publi.text()
+        resumo = self.ui.textEdit_resumo.toPlainText()
         
-        if nome and email:
+        if titulo and autor and categoria and publicacao and resumo:
+            print(publicacao)
+
             try:
 
-                query = "INSERT INTO clientes (nome, email) VALUES (%s, %s)"
-                values = (nome, email)
+                query = "INSERT INTO livros (titulo, autor, categoria, dataPubli, resumo) VALUES (%s, %s, %s, %s, %s)"
+                values = (titulo, autor, categoria, publicacao, resumo)
                 self.Cursor.execute(query,values)
 
                 self.db_connection.commit()
